@@ -1,0 +1,29 @@
+GitHub Pages 公開手順
+
+このアプリは、GitHub Pagesに置けばスマートフォン・タブレットから普通のURLで開けます。
+
+手順
+
+1. GitHubにログインします。
+2. 右上の「+」から「New repository」を選びます。
+3. Repository name に pecs-card-talk などの名前を入れます。
+4. Public を選びます。
+5. Create repository を押します。
+6. 作成したリポジトリで「uploading an existing file」を選びます。
+7. このフォルダの中身をアップロードします。
+8. Commit changes を押します。
+9. リポジトリの Settings を開きます。
+10. 左側の Pages を開きます。
+11. Source を Deploy from a branch にします。
+12. Branch を main、フォルダを /(root) にします。
+13. Save を押します。
+14. 数分待つと、Pages画面に公開URLが表示されます。
+
+スマホ・タブレットで使う
+
+公開URLをスマホやタブレットで開きます。
+SafariやChromeのメニューから「ホーム画面に追加」を選ぶと、アプリのように起動できます。
+
+補足
+
+GitHub Pagesの公式説明では、リポジトリのSettingsからPagesを開き、公開元としてブランチとフォルダを選ぶ方法が案内されています。

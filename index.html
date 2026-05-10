@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#287b7b" />
+    <title>PECS 絵カードトーク</title>
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">PECS / 視覚支援</p>
+          <h1>絵カードトーク</h1>
+        </div>
+        <div class="top-actions">
+          <button class="icon-button" id="openMaker" type="button" title="カードを作る">＋</button>
+          <button class="text-button" id="printCards" type="button">印刷用に並べる</button>
+        </div>
+      </header>
+
+      <section class="talk-panel" aria-label="トークバー">
+        <div class="talk-heading">
+          <strong>トークバー</strong>
+          <span id="sentencePreview">カードをタップしてここに並べます</span>
+        </div>
+        <div class="talk-bar" id="talkBar" aria-live="polite"></div>
+        <div class="talk-actions">
+          <button class="primary-button" id="speakButton" type="button">読み上げ</button>
+          <button class="text-button" id="clearTalk" type="button">クリア</button>
+        </div>
+      </section>
+
+      <section class="workspace">
+        <aside class="category-rail" aria-label="カテゴリー">
+          <button class="category active" data-category="first" type="button">はじめて</button>
+          <button class="category" data-category="food" type="button">食べ物</button>
+          <button class="category" data-category="drink" type="button">飲み物</button>
+          <button class="category" data-category="toy" type="button">おもちゃ</button>
+          <button class="category" data-category="action" type="button">動詞</button>
+          <button class="category" data-category="person" type="button">人物</button>
+          <button class="category" data-category="place" type="button">場所</button>
+          <button class="category" data-category="schedule" type="button">予定</button>
+          <button class="category" data-category="care" type="button">身支度</button>
+          <button class="category" data-category="feeling" type="button">気持ち</button>
+          <button class="category" data-category="body" type="button">からだ</button>
+          <button class="category" data-category="medical" type="button">医療・歯科</button>
+          <button class="category" data-category="custom" type="button">自作</button>
+        </aside>
+
+        <section class="cards-area">
+          <div class="tool-row">
+            <label class="search-box">
+              <span>検索</span>
+              <input id="searchInput" type="search" placeholder="カード名を入力" />
+            </label>
+            <div class="segmented" aria-label="文字の位置">
+              <button class="segment active" data-caption="bottom" type="button">文字 下</button>
+              <button class="segment" data-caption="top" type="button">文字 上</button>
+            </div>
+            <select id="voiceRate" aria-label="読み上げ速度">
+              <option value="0.8">ゆっくり</option>
+              <option value="1" selected>ふつう</option>
+              <option value="1.15">少し速く</option>
+            </select>
+          </div>
+          <div class="card-grid" id="cardGrid"></div>
+        </section>
+      </section>
+    </main>
+
+    <dialog class="maker-modal" id="makerModal">
+      <form method="dialog" class="maker-form">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">自作カード</p>
+            <h2>画像と文字でカードを作る</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" title="閉じる">×</button>
+        </div>
+
+        <div class="maker-layout">
+          <div class="maker-fields">
+            <label>
+              カードの文字
+              <input id="customText" type="text" placeholder="例：りんご" />
+            </label>
+            <label>
+              読み上げる言葉
+              <input id="customSpeech" type="text" placeholder="空欄ならカードの文字" />
+            </label>
+            <label>
+              カテゴリー
+              <select id="customCategory">
+                <option value="custom">自作</option>
+                <option value="food">食べ物</option>
+                <option value="drink">飲み物</option>
+                <option value="toy">おもちゃ</option>
+                <option value="action">動詞</option>
+                <option value="person">人物</option>
+                <option value="place">場所</option>
+                <option value="schedule">予定</option>
+                <option value="care">身支度</option>
+                <option value="feeling">気持ち</option>
+                <option value="body">からだ</option>
+                <option value="medical">医療・歯科</option>
+              </select>
+            </label>
+            <label>
+              画像
+              <input id="customImage" type="file" accept="image/*" />
+            </label>
+            <div class="segmented wide" aria-label="自作カードの文字位置">
+              <button class="segment active" data-custom-caption="bottom" type="button">下に文字</button>
+              <button class="segment" data-custom-caption="top" type="button">上に文字</button>
+            </div>
+            <button class="primary-button" id="addCustomCard" type="button">カードを追加</button>
+          </div>
+          <div class="preview-wrap">
+            <div id="customPreview" class="picture-card preview-card caption-bottom">
+              <div class="card-art image-placeholder">画像</div>
+              <div class="card-label">カード名</div>
+            </div>
+          </div>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog class="print-modal" id="printModal">
+      <form method="dialog" class="print-form">
+        <div class="modal-head">
+          <div>
+            <p class="eyebrow">L版プリント想定</p>
+            <h2>選んだカードを並べる</h2>
+          </div>
+          <button class="icon-button" value="cancel" type="submit" title="閉じる">×</button>
+        </div>
+        <div class="tool-row">
+          <select id="printLayout" aria-label="印刷レイアウト">
+            <option value="medium">中サイズ 6枚</option>
+            <option value="small">小サイズ 12枚</option>
+            <option value="wide">大サイズ 横 2枚</option>
+            <option value="tall">大サイズ 縦 2枚</option>
+          </select>
+          <button class="primary-button" id="downloadSheet" type="button">PNG保存</button>
+        </div>
+        <canvas id="printCanvas" width="1270" height="890"></canvas>
+      </form>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>

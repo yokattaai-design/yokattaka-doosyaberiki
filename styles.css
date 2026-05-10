@@ -1,0 +1,446 @@
+:root {
+  color-scheme: light;
+  --bg: #f6f4ef;
+  --paper: #fffdf8;
+  --ink: #22201c;
+  --muted: #6e675c;
+  --line: #d8d0c3;
+  --brand: #287b7b;
+  --brand-dark: #176060;
+  --accent: #d86f45;
+  --soft: #e7f1ef;
+  --focus: #f5bf4f;
+  font-family: "Yu Gothic", "Hiragino Kaku Gothic ProN", Meiryo, system-ui, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+.app-shell {
+  width: min(1180px, calc(100vw - 28px));
+  margin: 0 auto;
+  padding: 18px 0 30px;
+}
+
+.topbar,
+.talk-panel,
+.cards-area,
+.maker-form,
+.print-form {
+  background: var(--paper);
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  box-shadow: 0 12px 30px rgba(55, 45, 30, 0.08);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 20px;
+}
+
+.eyebrow {
+  margin: 0 0 2px;
+  color: var(--brand-dark);
+  font-size: 12px;
+  font-weight: 700;
+}
+
+h1,
+h2 {
+  margin: 0;
+  letter-spacing: 0;
+}
+
+h1 {
+  font-size: clamp(26px, 3vw, 40px);
+}
+
+h2 {
+  font-size: 22px;
+}
+
+.top-actions,
+.talk-actions,
+.tool-row,
+.modal-head {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.top-actions,
+.modal-head {
+  justify-content: space-between;
+}
+
+.icon-button,
+.text-button,
+.primary-button,
+.category,
+.segment {
+  min-height: 42px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--ink);
+  font-weight: 700;
+}
+
+.icon-button {
+  width: 44px;
+  font-size: 26px;
+  line-height: 1;
+}
+
+.text-button,
+.primary-button {
+  padding: 0 16px;
+}
+
+.primary-button {
+  border-color: var(--brand);
+  background: var(--brand);
+  color: white;
+}
+
+.primary-button:hover,
+.primary-button:focus-visible {
+  background: var(--brand-dark);
+}
+
+.talk-panel {
+  margin-top: 14px;
+  padding: 14px;
+}
+
+.talk-heading {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.talk-heading span {
+  color: var(--muted);
+  font-size: 14px;
+}
+
+.talk-bar {
+  display: flex;
+  gap: 10px;
+  min-height: 124px;
+  padding: 12px;
+  overflow-x: auto;
+  border: 2px dashed #c9bba7;
+  border-radius: 8px;
+  background: #fffaf0;
+}
+
+.talk-bar:empty::before {
+  content: "ここにカードが入ります";
+  align-self: center;
+  color: #8a8070;
+  font-weight: 700;
+}
+
+.talk-actions {
+  margin-top: 12px;
+  justify-content: flex-end;
+}
+
+.workspace {
+  display: grid;
+  grid-template-columns: 184px 1fr;
+  gap: 14px;
+  margin-top: 14px;
+}
+
+.category-rail {
+  display: grid;
+  align-content: start;
+  gap: 8px;
+}
+
+.category {
+  width: 100%;
+  padding: 0 12px;
+  text-align: left;
+}
+
+.category.active {
+  border-color: var(--brand);
+  background: var(--soft);
+  color: var(--brand-dark);
+}
+
+.cards-area {
+  min-width: 0;
+  padding: 14px;
+}
+
+.tool-row {
+  flex-wrap: wrap;
+  margin-bottom: 14px;
+}
+
+.search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: min(360px, 100%);
+  padding: 0 12px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+}
+
+.search-box span {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.search-box input {
+  width: 100%;
+  height: 42px;
+  border: 0;
+  outline: 0;
+}
+
+.segmented {
+  display: inline-grid;
+  grid-auto-flow: column;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  overflow: hidden;
+  background: #fff;
+}
+
+.segmented.wide {
+  width: 100%;
+}
+
+.segment {
+  min-height: 40px;
+  padding: 0 12px;
+  border: 0;
+  border-radius: 0;
+}
+
+.segment.active {
+  background: var(--accent);
+  color: #fff;
+}
+
+select,
+input[type="text"],
+input[type="file"],
+input[type="search"] {
+  min-height: 42px;
+}
+
+select,
+input[type="text"],
+input[type="file"] {
+  width: 100%;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #fff;
+  padding: 0 10px;
+}
+
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(128px, 1fr));
+  gap: 12px;
+}
+
+.picture-card {
+  display: grid;
+  grid-template-rows: 1fr auto;
+  gap: 7px;
+  aspect-ratio: 1 / 1;
+  padding: 8px;
+  border: 2px solid #202020;
+  border-radius: 7px;
+  background: #fff;
+  color: #111;
+  text-align: center;
+  user-select: none;
+}
+
+.picture-card.caption-top {
+  grid-template-rows: auto 1fr;
+}
+
+.picture-card.caption-top .card-label {
+  order: -1;
+}
+
+.picture-card:hover,
+.picture-card:focus-visible {
+  outline: 4px solid var(--focus);
+  outline-offset: 2px;
+}
+
+.card-art {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  border-radius: 5px;
+  background: #f4f7f7;
+  font-size: clamp(38px, 8vw, 64px);
+  overflow: hidden;
+}
+
+.card-art img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.image-placeholder {
+  color: var(--muted);
+  font-size: 24px;
+  font-weight: 700;
+}
+
+.card-label {
+  display: grid;
+  place-items: center;
+  min-height: 28px;
+  line-height: 1.12;
+  font-size: 18px;
+  font-weight: 800;
+  overflow-wrap: anywhere;
+}
+
+.talk-chip {
+  flex: 0 0 92px;
+  width: 92px;
+  height: 92px;
+  padding: 6px;
+}
+
+.talk-chip .card-label {
+  font-size: 14px;
+  min-height: 22px;
+}
+
+.talk-chip .card-art {
+  font-size: 36px;
+}
+
+dialog {
+  width: min(920px, calc(100vw - 24px));
+  border: 0;
+  padding: 0;
+  background: transparent;
+}
+
+dialog::backdrop {
+  background: rgba(24, 22, 18, 0.45);
+}
+
+.maker-form,
+.print-form {
+  padding: 18px;
+}
+
+.maker-layout {
+  display: grid;
+  grid-template-columns: minmax(260px, 360px) 1fr;
+  gap: 18px;
+  margin-top: 18px;
+}
+
+.maker-fields {
+  display: grid;
+  gap: 12px;
+}
+
+.maker-fields label {
+  display: grid;
+  gap: 6px;
+  font-weight: 700;
+}
+
+.preview-wrap {
+  display: grid;
+  place-items: center;
+  min-height: 360px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: #f8f6ef;
+}
+
+.preview-card {
+  width: min(310px, 90%);
+}
+
+#printCanvas {
+  width: 100%;
+  max-height: 65vh;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: white;
+}
+
+@media (max-width: 760px) {
+  .topbar,
+  .talk-heading,
+  .talk-actions,
+  .modal-head {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .top-actions,
+  .talk-actions {
+    justify-content: stretch;
+  }
+
+  .top-actions > *,
+  .talk-actions > * {
+    flex: 1;
+  }
+
+  .workspace {
+    grid-template-columns: 1fr;
+  }
+
+  .category-rail {
+    display: flex;
+    overflow-x: auto;
+    padding-bottom: 4px;
+  }
+
+  .category {
+    flex: 0 0 auto;
+    width: auto;
+    white-space: nowrap;
+  }
+
+  .maker-layout {
+    grid-template-columns: 1fr;
+  }
+}
