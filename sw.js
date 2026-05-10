@@ -1,4 +1,4 @@
-const CACHE_NAME = "pecs-card-talk-v1";
+const CACHE_NAME = "yokatta-card-talk-v3";
 const APP_FILES = [
   "./",
   "./index.html",
